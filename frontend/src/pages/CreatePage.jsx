@@ -20,15 +20,29 @@ const CreatePage = () => {
     }
 
     setLoading(true);
-    try {
-      await api.post("/notes", {
-        title,
-        content,
-      });
+   try {
+  // const token = localStorage.getItem("token");
 
-      toast.success("Note created successfully!");
-      navigate("/");
-    } catch (error) {
+  // await api.post(
+  //   "/notes",
+  //   {
+  //     title,
+  //     content,
+  //   },
+  //   {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   }
+  // );
+  await api.post("/notes", {
+  title,
+  content,
+});
+
+  toast.success("Note created successfully!");
+  navigate("/");
+} catch (error) {
       console.log("Error creating note", error);
       if (error.response.status === 429) {
         toast.error("Slow down! You're creating notes too fast", {

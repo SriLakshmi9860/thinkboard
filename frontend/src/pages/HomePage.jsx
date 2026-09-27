@@ -15,7 +15,14 @@ const HomePage = () => {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await api.get("/notes");
+       const res = await api.get("/notes");
+      //  const token = localStorage.getItem("token");
+
+      //   const res = await api.get("/notes", {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   });
         console.log(res.data);
         setNotes(res.data);
         setIsRateLimited(false);

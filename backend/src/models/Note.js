@@ -1,19 +1,28 @@
-
 import mongoose from "mongoose";
-//1-create schema
-//2-model based off that schema
-const noteSchema=new mongoose.Schema({
-    title:{
-        type:String,
-        required:true,
-    },
-    content:{
-        type:String,
-        required:true,
+
+const noteSchema = new mongoose.Schema(
+    {
+        title: {
+            type: String,
+            required: true,
+        },
+
+        content: {
+            type: String,
+            required: true,
+        },
+
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
         },
     },
-    {timestamps:true}//createdAt,updatedAt
+    {
+        timestamps: true,
+    }
 );
 
-const Note=mongoose.model("Note",noteSchema);
+const Note = mongoose.model("Note", noteSchema);
+
 export default Note;

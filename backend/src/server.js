@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import path from "path";
 
 import notesRoutes from "./Routes/notesRoutes.js";
+import authRoutes from "./Routes/authRoutes.js";
 import { connectDB } from "./config/db.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 
@@ -31,6 +32,7 @@ app.use(rateLimiter);
 // });
 
 app.use("/api/notes", notesRoutes);
+app.use("/api/auth", authRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
@@ -45,6 +47,8 @@ connectDB().then(() => {
     console.log("Server started on PORT:", PORT);
   });
 });
+
+
 
 // app.listen(port,()=>{
 //     console.log("Server is running on port",port);

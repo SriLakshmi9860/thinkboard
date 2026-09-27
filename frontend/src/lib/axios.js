@@ -1,10 +1,36 @@
+// import axios from "axios";
+
+// // in production, there's no localhost so we have to make this dynamic
+// const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001/api" : "/api";
+
+// const api = axios.create({
+//   baseURL: BASE_URL,
+// });
+
+// export default api;
+
+
 import axios from "axios";
 
 // in production, there's no localhost so we have to make this dynamic
-const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001/api" : "/api";
+const BASE_URL =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:5001/api"
+    : "/api";
 
 const api = axios.create({
   baseURL: BASE_URL,
+});
+
+// Automatically attach JWT to every request
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
 });
 
 export default api;

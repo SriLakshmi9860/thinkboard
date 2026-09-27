@@ -17,7 +17,14 @@ const NoteDetailPage = () => {
   useEffect(() => {
     const fetchNote = async () => {
       try {
-        const res = await api.get(`/notes/${id}`);
+        const token = localStorage.getItem("token");
+
+        const res = await api.get(`/notes/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+       // const res = await api.get(`/notes/${id}`);
         setNote(res.data);
       } catch (error) {
         console.log("Error in fetching note", error);
@@ -34,7 +41,14 @@ const NoteDetailPage = () => {
     if (!window.confirm("Are you sure you want to delete this note?")) return;
 
     try {
-      await api.delete(`/notes/${id}`);
+     // await api.delete(`/notes/${id}`);
+     const token = localStorage.getItem("token");
+
+      await api.delete(`/notes/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       toast.success("Note deleted");
       navigate("/");
     } catch (error) {
@@ -52,7 +66,18 @@ const NoteDetailPage = () => {
     setSaving(true);
 
     try {
-      await api.put(`/notes/${id}`, note);
+     // await api.put(`/notes/${id}`, note);
+     const token = localStorage.getItem("token");
+
+      await api.put(
+        `/notes/${id}`,
+        note,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       toast.success("Note updated successfully");
       navigate("/");
     } catch (error) {
